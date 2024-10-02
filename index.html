@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<title>Music Player</title>
+				<link rel="stylesheet" href="styles.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="song-info">
+                    <img class="album-cover spin" id = "mp3-cover" src="Frog image.jpg">
+                    <div class="title">
+                        <strong>mp3 Player</strong>
+                    </div>
+                </div>
+                <div class="mp3-info">
+                    <div class="buttons">
+                        <button class="previous-button button">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button class="start-button button" type="button">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <button class="next-button button">
+                            <i class="fa-solid fa-forward"></i>                            
+                        </button>
+                        <button class="pause-button button" type="button">
+                            <i class="fa-solid fa-pause"></i>
+                        </button>
+                        <div class="progress-bar"></div>
+                        <div class="inner-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <script src="script.js"></script>
+    </body>
+    <footer>
+
+    </footer>
+</html>
