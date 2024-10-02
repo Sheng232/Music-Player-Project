@@ -5,11 +5,15 @@ const pauseButton = document.querySelector(".fa-pause");
 const nextButton = document.querySelector(".fa-forward");
 const prevButton = document.querySelector(".fa-backward");
 const songTitle = document.querySelector(".title");
+let currentSongIndex = 0;
+let audio = new Audio(mp3[currentSongIndex].src);
+
 const mp3 = [
     {
         id: 0,
         title: "Cricket sound",
-        src: "mp3 folder/Sound.mp3"
+        src: "mp3 folder/Sound.mp3",
+        albumImage: "Frog image.jpg"
     },
     {
         id: 1,
@@ -17,9 +21,6 @@ const mp3 = [
         src: "mp3 folder/Bird sound.mp3"
     }
 ];
-let currentSongIndex = 0;
-let audio = new Audio(mp3[currentSongIndex].src);
-
 
     startButton.addEventListener("click", playAudio);
     pauseButton.addEventListener("click", pauseAudio);
@@ -32,8 +33,7 @@ function playAudio(){
     albumCover.style.animationPlayState = "running";
     pauseButton.style.visibility = "visible";
     startButton.style.visibility = "hidden";
-    // songTitle = `${mp3[currentSongIndex].title}`;
-    // console.log(songTitle);
+    songTitle.innerText = `${mp3[currentSongIndex].title}`;
 }
 function pauseAudio(){
     audio.pause();
@@ -57,4 +57,7 @@ function prevAudio(){
     audio = new Audio(mp3[currentSongIndex].src);
     playAudio();
     }
+}
+function progressBar(){
+
 }
