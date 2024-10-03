@@ -8,6 +8,14 @@
 body{
     background: #ffffff;
 }
+header{
+    padding: 1rem;
+}
+header h1{
+    background: gray;
+    margin: 0;
+    padding: 1rem;
+}
 main{
     width: 100vw;
     height: auto;
@@ -89,27 +97,6 @@ main{
 .mp3-info{
     position: relative;
 }
-/* .progress-bar{
-    position: absolute;
-    top: 150%;
-    right: 10%;
-    height: 6px;
-    width: var(--mp3-info-length);
-    z-index: 1;
-    background: gray;
-    border-radius: 10px;
-    animation: 6s linear animation-bar;
-    animation-play-state: paused;
-} */
-/* .inner-progress-bar{
-    position: absolute;
-    top: 150%;
-    right: 10%;
-    width: var(--mp3-info-length);
-    height: 6px;
-    background: black;
-    border-radius: 10px;
-} */
 .playlist-info{
     font-size: 1rem;
     font-weight: bold;
@@ -130,12 +117,20 @@ main{
     align-items: center;
     
 }
+.song-button{
+    all: unset;
+}
+.song:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
 .grid{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
 .center{
     text-align: center;
+    align-items: center;
 }
 @keyframes spin{
     from{
@@ -165,7 +160,25 @@ main{
     .outer-container{
         flex-direction: column;
         justify-content: space-evenly;
-        height: 400px;
-        width: 70%;
+        width: 90%;
+    }
+    .buttons{
+        margin: 1rem;
+    }
+    .buttons .button{
+        margin: 0;
+        padding: 1rem;
+    }
+    .inner-container{
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .playlist-info, .songs{
+        letter-spacing: normal;
+        font-size: 0.7rem;
+    }
+    .song{
+        padding: 1rem 0 1rem 0;
     }
 }

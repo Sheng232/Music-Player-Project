@@ -31,7 +31,8 @@ html snippet*/
 function renderSong(array){
     const HTML = array.map((song)=> {
       return `
-      <div class="song grid center" id="Song${song.id}">
+      <div class="song" id="Song${song.id}">
+      <button class="song-button grid center" onclick = "pressPlayAudio(${song.id})">
         <div class="song-number">${song.id}</div>
             <div class="flexbox">
             <img class="album" src="${song.albumImage}">
@@ -39,6 +40,7 @@ function renderSong(array){
                 </div>
             <div class="song-artist">${song.artist}</div>
             <div class="song-length">${song.duration}</div>
+            </button>
         </div>
       `;
     })
@@ -59,6 +61,12 @@ songTitle.innerText = mp3[0].title;
 //Ends the song
 
 //functions
+function pressPlayAudio(id){
+    pauseAudio();
+    currentSongIndex = id - 1;
+    audio = new Audio(mp3[currentSongIndex].src);
+    playAudio();
+}
 function playAudio(){
     audio.play();
     //visual aspect of the code
@@ -68,7 +76,7 @@ function playAudio(){
     currentSong[currentSongIndex].style.border = "3px solid yellow";
     albumCover.setAttribute("src", `${mp3[currentSongIndex].albumImage}`);
     songTitle.innerText = `${mp3[currentSongIndex].title}`;
-    audio.addEventListener("ended", pauseAudio);
+    audio.addEventListener("ended", nextAudio);
     currentSong[currentSongIndex].style.animation = "none";
     currentSong[currentSongIndex].offsetWidth; 
     currentSong[currentSongIndex].style.animation = "opacitate 1s";
@@ -88,6 +96,9 @@ function nextAudio(){
     currentSongIndex++;
     audio = new Audio(mp3[currentSongIndex].src);
     playAudio();
+    }
+    else{
+        pauseAudio();
     }
 }
 function prevAudio(){
