@@ -1,31 +1,56 @@
 :root{
     --mp3-info-length: 420px;
-    --container-background: rgb(255, 255, 255);
+    --container-background: rgb(45, 158, 73);
 }
 *{
     box-sizing: border-box;
 }
 body{
-    background: linear-gradient(rgb(229, 238, 146),lightblue);
+    background: #ffffff;
 }
 main{
     width: 100vw;
-    height: 100vh;
+    height: auto;
     display: flex;
-    align-items: center;
     justify-content: center;
+    font-family: sans-serif;
 }
-.container{
+.outer-container{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: auto;
+    border: 0.75rem solid black;
+}
+.inner-container{
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 600px;
+    color: #ffffff;
     height: 150px;
     background: var(--container-background);
-    border-radius: 1rem;
-    box-shadow: 2px 2px 2px rgb(15, 15, 15);
+}
+.playlist-title{
+    background: #51a064;
+    margin: 0;
+    text-align: center;
+    padding: 0.5rem;
+}
+.song{
+    background: var(--container-background);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #ffffff;
+    padding: 1rem;
+}
+.album{
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    margin: 0 0.25rem 0 0.25rem;
 }
 .song-info{
     display: flex;
@@ -45,13 +70,15 @@ main{
     padding: 0.5rem;
 }
 .button{
+    color: #ffffff;
     font-size: 1.5rem;
     background: none;
     border: none;
-    padding-right: 2rem;
+    margin-right: 2rem;
+    opacity: 0.9;
 }
 .button:hover{
-    color: lightblue;
+    opacity: 1;
     cursor: pointer;
 }
 .pause-button{
@@ -62,7 +89,7 @@ main{
 .mp3-info{
     position: relative;
 }
-.progress-bar{
+/* .progress-bar{
     position: absolute;
     top: 150%;
     right: 10%;
@@ -73,9 +100,8 @@ main{
     border-radius: 10px;
     animation: 6s linear animation-bar;
     animation-play-state: paused;
-
-}
-.inner-progress-bar{
+} */
+/* .inner-progress-bar{
     position: absolute;
     top: 150%;
     right: 10%;
@@ -83,6 +109,11 @@ main{
     height: 6px;
     background: black;
     border-radius: 10px;
+} */
+.playlist-info{
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
 }
 .album-cover{
     width: 150px;
@@ -93,6 +124,18 @@ main{
 .spin{
     animation: 3s linear infinite spin;
     animation-play-state: paused;
+}
+.flexbox{
+    display: flex;
+    align-items: center;
+    
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.center{
+    text-align: center;
 }
 @keyframes spin{
     from{
@@ -110,14 +153,19 @@ main{
         width: 0;
     }
 }
-
+@keyframes opacitate{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
 @media (max-width: 600px){
-    .container{
+    .outer-container{
         flex-direction: column;
         justify-content: space-evenly;
         height: 400px;
-    }
-    .progress-bar .inner-progress-bar{
-        
+        width: 70%;
     }
 }
