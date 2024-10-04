@@ -44,7 +44,7 @@ main{
     background: #51a064;
     margin: 0;
     text-align: center;
-    padding: 0.5rem;
+    padding: 1rem;
 }
 .song{
     background: var(--container-background);
@@ -82,8 +82,8 @@ main{
     font-size: 1.5rem;
     background: none;
     border: none;
-    margin-right: 2rem;
-    opacity: 0.9;
+    margin-right: 1rem;
+    opacity: 0.8;
 }
 .button:hover{
     opacity: 1;
@@ -92,7 +92,7 @@ main{
 .pause-button{
     visibility: hidden;
     position: absolute;
-    right: 35%;
+    right: 53%;
 }
 .mp3-info{
     position: relative;
@@ -100,7 +100,6 @@ main{
 .playlist-info{
     font-size: 1rem;
     font-weight: bold;
-    letter-spacing: 0.2rem;
 }
 .album-cover{
     width: 150px;
@@ -123,6 +122,10 @@ main{
 .song:hover{
     opacity: 0.5;
     cursor: pointer;
+}
+.playlist-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.4fr;
 }
 .grid{
     display: grid;
