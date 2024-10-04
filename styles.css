@@ -1,18 +1,19 @@
 :root{
     --mp3-info-length: 420px;
     --container-background: rgb(45, 158, 73);
+    --background-color: rgb(207, 200, 200);
 }
 *{
     box-sizing: border-box;
 }
 body{
-    background: #ffffff;
+    background: var(--background-color);
 }
 header{
     padding: 1rem;
 }
 header h1{
-    background: gray;
+    background: var(--background-color);
     margin: 0;
     padding: 1rem;
 }
@@ -28,7 +29,7 @@ main{
     flex-direction: column;
     width: 600px;
     height: auto;
-    border: 0.75rem solid black;
+    border: 0.25rem solid black;
 }
 .inner-container{
     position: relative;
@@ -39,6 +40,15 @@ main{
     color: #ffffff;
     height: 150px;
     background: var(--container-background);
+}
+.playlist-title h3{
+    font-size: 1.5rem;
+    margin: 1rem;
+}
+.playlist-flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .playlist-title{
     background: #51a064;
@@ -135,6 +145,16 @@ main{
     text-align: center;
     align-items: center;
 }
+
+footer{
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    background-color: var(--background-color);
+    margin: 1rem;
+}
+
 @keyframes spin{
     from{
         transform: rotate(0deg);
@@ -163,7 +183,7 @@ main{
     .outer-container{
         flex-direction: column;
         justify-content: space-evenly;
-        width: 90%;
+        width: 100%;
     }
     .buttons{
         margin: 1rem;
