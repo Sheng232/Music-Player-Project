@@ -71,13 +71,14 @@ let currentSongIndex = 0;
 let audio = new Audio(mp3[currentSongIndex].src);
 let isShuffle = false;
 songTitle.innerText = mp3[0].title;
+let shuffleSong = [];
 
 //Buttons
     startButton.addEventListener("click", playAudio);
     pauseButton.addEventListener("click", pauseAudio);
     nextButton.addEventListener("click", nextAudio);
     prevButton.addEventListener("click", prevAudio);
-    shuffleButton.addEventListener("click", shuffle);
+    shuffleButton.addEventListener("click", setShuffle);
 //Ends the song
 
 //functions
@@ -87,11 +88,53 @@ function pressPlayAudio(id){
     audio = new Audio(mp3[currentSongIndex].src);
     playAudio();
 }
-function playAudio(){
-    if(isShuffle){
-        //implement shuffle feature
+function setShuffle(){
+    if(!isShuffle){
+        isShuffle = true;
+        shuffleButton.style.color = "yellow";
+        shuffle();
     }
     else{
+        isShuffle = false;
+        shuffleButton.style.color = "white";
+    }
+}
+function shuffle(){
+    if(!audio.paused){
+        pauseAudio();
+        shuffle();
+    }
+    else if(isShuffle){
+        let randomSong = Math.floor(Math.random()*mp3.length);
+        if(shuffleSong.length === mp3.length){
+            shuffleSong = [];
+            shuffle();
+        }
+        else if(!shuffleSong.includes(randomSong)){
+            shuffleSong.push(randomSong);
+            audio = new Audio(mp3[randomSong].src);
+            audio.play();
+            //visual aspect of the code
+            albumCover.style.animationPlayState = "running";
+            pauseButton.style.visibility = "visible";
+            startButton.style.visibility = "hidden";
+            currentSong[randomSong].style.border = "3px solid yellow";
+            albumCover.setAttribute("src", `${mp3[randomSong].albumImage}`);
+            songTitle.innerText = `${mp3[randomSong].title}`;
+            currentSong[randomSong].style.animation = "none";
+            currentSong[randomSong].offsetWidth; 
+            currentSong[randomSong].style.animation = "opacitate 1s";
+            audio.addEventListener("ended", () =>{
+                currentSong[randomSong].style.border = "none";
+            });
+            audio.addEventListener("ended", shuffle);
+        }
+        else{
+            shuffle();
+        }
+    }
+}
+function playAudio(){
     audio.play();
     //visual aspect of the code
     albumCover.style.animationPlayState = "running";
@@ -104,7 +147,6 @@ function playAudio(){
     currentSong[currentSongIndex].style.animation = "none";
     currentSong[currentSongIndex].offsetWidth; 
     currentSong[currentSongIndex].style.animation = "opacitate 1s";
-    }
 }
 function pauseAudio(){
     audio.pause();
@@ -133,16 +175,6 @@ function prevAudio(){
     currentSongIndex--;
     audio = new Audio(mp3[currentSongIndex].src);
     playAudio();
-    }
-}
-function shuffle(){
-    if(!isShuffle){
-        isShuffle = true;
-        shuffleButton.style.color = "yellow";
-    }
-    else{
-        isShuffle = false;
-        shuffleButton.style.color = "white";
     }
 }
 function deleteSong(id){
