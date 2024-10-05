@@ -166,14 +166,6 @@ footer{
         transform: rotate(360deg);
     }
 }
-@keyframes animation-bar{
-    from{
-        width: var(--mp3-info-length);
-    }
-    to{
-        width: 0;
-    }
-}
 @keyframes opacitate{
     from{
         opacity: 0;

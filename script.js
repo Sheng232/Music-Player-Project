@@ -49,7 +49,7 @@ function renderSong(array){
     const HTML = array.map((song)=> {
       return `
       <div class="song">
-      <button class="song-button grid center" onclick = "pressPlayAudio(${song.id})">
+      <button class="song-button grid center" onclick = "pressPlayAudio(${array.indexOf(song)})">
         <div class="song-number">${array.indexOf(song)+1}</div>
             <div class="flexbox">
             <img class="album" src="${song.albumImage}">
@@ -58,7 +58,7 @@ function renderSong(array){
             <div class="song-artist">${song.artist}</div>
             <div class="song-length">${song.duration}</div>
             </button>
-            <button class="button" onclick = "deleteSong(${song.id})"><i class="fa-solid fa-trash"></i></button>
+            <button class="button" onclick = "deleteSong(${array.indexOf(song)})"><i class="fa-solid fa-trash"></i></button>
         </div>
       `;
     })
@@ -66,7 +66,7 @@ function renderSong(array){
    songsHTML.innerHTML = HTML;
 }
 renderSong(mp3);
-const currentSong = document.querySelectorAll(".song");
+let currentSong = document.querySelectorAll(".song");
 let currentSongIndex = 0;
 let audio = new Audio(mp3[currentSongIndex].src);
 let isShuffle = false;
@@ -83,10 +83,18 @@ let shuffleSong = [];
 
 //functions
 function pressPlayAudio(id){
-    pauseAudio();
-    currentSongIndex = id - 1;
-    audio = new Audio(mp3[currentSongIndex].src);
-    playAudio();
+    if(!isShuffle){
+        pauseAudio();
+        currentSongIndex = id;
+        audio = new Audio(mp3[currentSongIndex].src);
+        playAudio();
+    }
+    else{
+        pauseAudio();
+        currentSongIndex = id;
+        audio = new Audio(mp3[currentSongIndex].src);
+        playAudio();
+    }
 }
 function setShuffle(){
     if(!isShuffle){
@@ -100,53 +108,54 @@ function setShuffle(){
     }
 }
 function shuffle(){
+    currentSong[currentSongIndex].style.border = "none";
     if(!audio.paused){
         pauseAudio();
         shuffle();
     }
     else if(isShuffle){
-        let randomSong = Math.floor(Math.random()*mp3.length);
-        if(shuffleSong.length === mp3.length){
+        currentSongIndex = Math.floor(Math.random()*mp3.length);
+        if(shuffleSong.length >= mp3.length){
             shuffleSong = [];
             shuffle();
         }
-        else if(!shuffleSong.includes(randomSong)){
-            shuffleSong.push(randomSong);
-            audio = new Audio(mp3[randomSong].src);
+        else if(!shuffleSong.includes(currentSongIndex)){
+            shuffleSong.push(currentSongIndex);
+            audio = new Audio(mp3[currentSongIndex].src);
             audio.play();
             //visual aspect of the code
             albumCover.style.animationPlayState = "running";
             pauseButton.style.visibility = "visible";
             startButton.style.visibility = "hidden";
-            currentSong[randomSong].style.border = "3px solid yellow";
-            albumCover.setAttribute("src", `${mp3[randomSong].albumImage}`);
-            songTitle.innerText = `${mp3[randomSong].title}`;
-            currentSong[randomSong].style.animation = "none";
-            currentSong[randomSong].offsetWidth; 
-            currentSong[randomSong].style.animation = "opacitate 1s";
-            audio.addEventListener("ended", () =>{
-                currentSong[randomSong].style.border = "none";
-            });
+            currentSong[currentSongIndex].style.border = "3px solid yellow";
+            albumCover.setAttribute("src", `${mp3[currentSongIndex].albumImage}`);
+            songTitle.innerText = `${mp3[currentSongIndex].title}`;
+            currentSong[currentSongIndex].style.animation = "none";
+            currentSong[currentSongIndex].offsetWidth; 
+            currentSong[currentSongIndex].style.animation = "opacitate 1s";
             audio.addEventListener("ended", shuffle);
+            
         }
         else{
             shuffle();
         }
     }
 }
+
 function playAudio(){
-    audio.play();
-    //visual aspect of the code
-    albumCover.style.animationPlayState = "running";
-    pauseButton.style.visibility = "visible";
-    startButton.style.visibility = "hidden";
-    currentSong[currentSongIndex].style.border = "3px solid yellow";
-    albumCover.setAttribute("src", `${mp3[currentSongIndex].albumImage}`);
-    songTitle.innerText = `${mp3[currentSongIndex].title}`;
-    audio.addEventListener("ended", nextAudio);
-    currentSong[currentSongIndex].style.animation = "none";
-    currentSong[currentSongIndex].offsetWidth; 
-    currentSong[currentSongIndex].style.animation = "opacitate 1s";
+        shuffleSong.push(currentSongIndex);
+        audio.play();
+        //visual aspect of the code
+        albumCover.style.animationPlayState = "running";
+        pauseButton.style.visibility = "visible";
+        startButton.style.visibility = "hidden";
+        currentSong[currentSongIndex].style.border = "3px solid yellow";
+        albumCover.setAttribute("src", `${mp3[currentSongIndex].albumImage}`);
+        songTitle.innerText = `${mp3[currentSongIndex].title}`;
+        audio.addEventListener("ended", nextAudio);
+        currentSong[currentSongIndex].style.animation = "none";
+        currentSong[currentSongIndex].offsetWidth; 
+        currentSong[currentSongIndex].style.animation = "opacitate 1s";
 }
 function pauseAudio(){
     audio.pause();
@@ -157,15 +166,20 @@ function pauseAudio(){
     currentSong[currentSongIndex].style.border = "none";
 }
 function nextAudio(){
-    if(currentSongIndex < mp3.length - 1){
-    currentSong[currentSongIndex].style.border = "none";
-    audio.pause();
-    currentSongIndex++;
-    audio = new Audio(mp3[currentSongIndex].src);
-    playAudio();
+    if(!isShuffle){
+        if(currentSongIndex < mp3.length - 1){
+        currentSong[currentSongIndex].style.border = "none";
+        audio.pause();
+        currentSongIndex++;
+        audio = new Audio(mp3[currentSongIndex].src);
+        playAudio();
+        }
+        else{
+            pauseAudio();
+        }
     }
     else{
-        pauseAudio();
+        shuffle();
     }
 }
 function prevAudio(){
@@ -178,7 +192,24 @@ function prevAudio(){
     }
 }
 function deleteSong(id){
-    currentSongIndex = id - 1;
-    mp3.splice(currentSongIndex, 1);
+    mp3.splice(id, 1);
     renderSong(mp3);
+    currentSong = document.querySelectorAll(".song");
+    if (currentSongIndex >= mp3.length) {
+        currentSongIndex = mp3.length - 1; 
+    }
+    // Reset the audio player with the current song
+    // if (mp3.length > 0) {
+    //     audio.pause();
+    //     audio = new Audio(mp3[currentSongIndex].src);
+    //     songTitle.innerText = mp3[currentSongIndex].title;
+    //     albumCover.setAttribute("src", mp3[currentSongIndex].albumImage);
+    // }
+
+    // Reattach event listeners to the buttons
+    // startButton.addEventListener("click", playAudio);
+    // pauseButton.addEventListener("click", pauseAudio);
+    // nextButton.addEventListener("click", nextAudio);
+    // prevButton.addEventListener("click", prevAudio);
+    // shuffleButton.addEventListener("click", setShuffle);
 }
