@@ -149,12 +149,15 @@ main{
 footer{
     text-align: center;
     padding: 2rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-family: sans-serif;
     background-color: var(--background-color);
     margin: 1rem;
 }
-
+.rights{
+    font-size: 1.5rem;
+    margin: 2rem;
+}
 @keyframes spin{
     from{
         transform: rotate(0deg);
