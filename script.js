@@ -65,6 +65,7 @@ function renderSong(array){
     .join("");
    songsHTML.innerHTML = HTML;
 }
+
 renderSong(mp3);
 let currentSong = document.querySelectorAll(".song");
 let currentSongIndex = 0;
@@ -198,18 +199,4 @@ function deleteSong(id){
     if (currentSongIndex >= mp3.length) {
         currentSongIndex = mp3.length - 1; 
     }
-    // Reset the audio player with the current song
-    // if (mp3.length > 0) {
-    //     audio.pause();
-    //     audio = new Audio(mp3[currentSongIndex].src);
-    //     songTitle.innerText = mp3[currentSongIndex].title;
-    //     albumCover.setAttribute("src", mp3[currentSongIndex].albumImage);
-    // }
-
-    // Reattach event listeners to the buttons
-    // startButton.addEventListener("click", playAudio);
-    // pauseButton.addEventListener("click", pauseAudio);
-    // nextButton.addEventListener("click", nextAudio);
-    // prevButton.addEventListener("click", prevAudio);
-    // shuffleButton.addEventListener("click", setShuffle);
 }
